@@ -42,6 +42,11 @@ export default function DirectEnterpriseDashboard() {
     localStorage.setItem("events", JSON.stringify(events));
   }, [events]);
 
+  const totalEvents = events.length;
+  const technicalCount = events.filter(e => e.category === "Technical").length;
+  const culturalCount = events.filter(e => e.category === "Cultural").length;
+  const sportsCount = events.filter(e => e.category === "Sports").length;
+
   const analyticsData = [
     { name: "Jan", value: events.length + 1 },
     { name: "Feb", value: events.length + 2 },
@@ -122,13 +127,26 @@ export default function DirectEnterpriseDashboard() {
         <AnimatePresence mode="wait">
           {activePage === "dashboard" && (
             <motion.div key="dash" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                {["Total Events", "Users", "Growth"].map((item, i) => (
-                  <motion.div key={i} whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl shadow-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white">
-                    <p>{item}</p>
-                    <h2 className="text-3xl font-bold">{events.length}</h2>
-                  </motion.div>
-                ))}
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl shadow-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white">
+                  <p>Total Events</p>
+                  <h2 className="text-3xl font-bold">{totalEvents}</h2>
+                </motion.div>
+
+                <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl shadow-xl bg-gradient-to-br from-indigo-500 to-blue-600 text-white">
+                  <p>Technical</p>
+                  <h2 className="text-3xl font-bold">{technicalCount}</h2>
+                </motion.div>
+
+                <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl shadow-xl bg-gradient-to-br from-pink-500 to-rose-600 text-white">
+                  <p>Cultural</p>
+                  <h2 className="text-3xl font-bold">{culturalCount}</h2>
+                </motion.div>
+
+                <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl shadow-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white">
+                  <p>Sports</p>
+                  <h2 className="text-3xl font-bold">{sportsCount}</h2>
+                </motion.div>
               </div>
 
               {/* Elite Chart */}
