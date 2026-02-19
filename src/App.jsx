@@ -89,9 +89,9 @@ export default function DirectEnterpriseDashboard() {
         </div>
 
         <div className="space-y-4">
-          <button onClick={() => setActivePage("dashboard")} className="flex items-center gap-3"><Home /> {sidebarOpen && "Dashboard"}</button>
-          <button onClick={() => setActivePage("events")} className="flex items-center gap-3"><Calendar /> {sidebarOpen && "Events"}</button>
-          <button onClick={() => setActivePage("analytics")} className="flex items-center gap-3"><BarChart3 /> {sidebarOpen && "Analytics"}</button>
+          <button onClick={() => setActivePage("dashboard")} className="flex items-center gap-3 hover:scale-105 transition-transform duration-200"><Home /> {sidebarOpen && "Dashboard"}</button>
+          <button onClick={() => setActivePage("events")} className="flex items-center gap-3 hover:scale-105 transition-transform duration-200"><Calendar /> {sidebarOpen && "Events"}</button>
+          <button onClick={() => setActivePage("analytics")} className="flex items-center gap-3 hover:scale-105 transition-transform duration-200"><BarChart3 /> {sidebarOpen && "Analytics"}</button>
         </div>
 
         <button onClick={() => setDark(!dark)} className="mt-6 w-full border rounded-xl py-2">{dark ? "☀" : "🌙"}</button>
@@ -107,7 +107,7 @@ export default function DirectEnterpriseDashboard() {
       {/* Main */}
       <div className="flex-1 p-8">
         <div className="flex justify-between items-center mb-8 backdrop-blur-xl bg-white/40 dark:bg-white/10 rounded-2xl px-6 py-4 shadow-lg">
-          <h1 className="text-2xl font-bold">Direct Elite Suite</h1>
+          <h1 className="text-2xl font-bold">Direct Next‑Gen Suite</h1>
           <div className="flex items-center gap-4">
             {isAdmin && activePage === "events" && (
               <button onClick={() => setShowModal(true)} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white">
@@ -149,7 +149,7 @@ export default function DirectEnterpriseDashboard() {
           {activePage === "events" && (
             <motion.div key="events" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {events.map((event) => (
-                <motion.div key={event.id} whileHover={{ scale: 1.05 }} className="backdrop-blur-xl bg-white/70 rounded-3xl shadow-xl overflow-hidden">
+                <motion.div key={event.id} whileHover={{ scale: 1.05 }} className="backdrop-blur-xl bg-white/70 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
                   {event.image && <img src={event.image} alt="event" className="w-full h-44 object-cover" />}
                   <div className="p-6">
                     <h2 className="text-xl font-semibold">{event.title}</h2>
