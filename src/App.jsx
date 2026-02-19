@@ -197,6 +197,12 @@ export default function DirectEnterpriseDashboard() {
               <h2 className="font-semibold mb-4">Add Event</h2>
               <input name="title" value={form.title} onChange={handleChange} placeholder="Title" className="border p-2 rounded-xl w-full mb-2" />
               <input name="date" value={form.date} onChange={handleChange} placeholder="Date" className="border p-2 rounded-xl w-full mb-2" />
+              <select name="category" value={form.category} onChange={handleChange} className="border p-2 rounded-xl w-full mb-2">
+                <option value="">Select Category</option>
+                <option value="Technical">Technical</option>
+                <option value="Cultural">Cultural</option>
+                <option value="Sports">Sports</option>
+              </select>
               <input name="location" value={form.location} onChange={handleChange} placeholder="Location" className="border p-2 rounded-xl w-full mb-2" />
               <input name="image" value={form.image} onChange={handleChange} placeholder="Image URL" className="border p-2 rounded-xl w-full mb-2" />
               <textarea name="description" value={form.description} onChange={handleChange} placeholder="Description" className="border p-2 rounded-xl w-full mb-2" />
