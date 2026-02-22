@@ -122,7 +122,7 @@ export default function DirectEnterpriseDashboard() {
       {/* Main */}
       <div className="flex-1 p-8">
         <div className="flex justify-between items-center mb-8 backdrop-blur-xl bg-white/40 dark:bg-white/10 rounded-2xl px-6 py-4 shadow-lg">
-          <h1 className="text-2xl font-bold">Direct Dashboard</h1>
+          <h1 className="text-2xl font-bold">Dashboard</h1>
           {isAdmin && activePage === "events" && (
             <button onClick={() => setShowModal(true)} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white">
               <Plus /> Add
@@ -186,7 +186,7 @@ export default function DirectEnterpriseDashboard() {
       <AnimatePresence>
         {showModal && (
           <motion.div className="fixed inset-0 bg-black/40 flex items-center justify-center" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} exit={{ scale: 0.8 }} className="bg-white p-6 rounded-2xl w-96">
+            <motion.div initial={{ scale: 0.8 }} animate={{ scale: 1 }} exit={{ scale: 0.8 }} className={dark ? "bg-[#020617] text-white border border-white/10 p-6 rounded-2xl w-96" : "bg-white p-6 rounded-2xl w-96"}>
               <h2 className="font-semibold mb-4">Add Event</h2>
               <input name="title" value={form.title} onChange={handleChange} placeholder="Title" className="border p-2 rounded-xl w-full mb-2" />
               <input name="date" value={form.date} onChange={handleChange} placeholder="Date" className="border p-2 rounded-xl w-full mb-2" />
