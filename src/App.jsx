@@ -173,6 +173,15 @@ export default function DirectEnterpriseDashboard() {
                     <h2 className="text-xl font-semibold">{event.title}</h2>
                     <p className="text-sm opacity-70">📅 {event.date}</p>
                     <p className="text-sm opacity-70">📍 {event.location}</p>
+                    <span className={`inline-block mt-2 px-3 py-1 text-xs rounded-full ${
+                      event.category === "Technical"
+                        ? "bg-blue-100 text-blue-700"
+                        : event.category === "Cultural"
+                        ? "bg-pink-100 text-pink-700"
+                        : "bg-green-100 text-green-700"
+                    }`}>
+                      {event.category}
+                    </span>
                     <p className="mt-3 text-sm">{event.description}</p>
                     {isAdmin && <button onClick={() => deleteEvent(event.id)} className="mt-4 w-full bg-red-500 text-white py-2 rounded-xl">Delete</button>}
                   </div>
