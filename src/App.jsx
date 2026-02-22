@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, Calendar, BarChart3, Menu, Bell, Plus } from "lucide-react";
+import { Home, Calendar, Menu, Bell, Plus } from "lucide-react";
 import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 
 export default function DirectEnterpriseDashboard() {
@@ -47,13 +47,6 @@ export default function DirectEnterpriseDashboard() {
   const culturalCount = events.filter(e => e.category === "Cultural").length;
   const sportsCount = events.filter(e => e.category === "Sports").length;
 
-  const analyticsData = [
-    { name: "Jan", value: events.length + 1 },
-    { name: "Feb", value: events.length + 2 },
-    { name: "Mar", value: events.length + 3 },
-    { name: "Apr", value: events.length + 4 }
-  ];
-
   const showToast = (msg) => {
     setToast(msg);
     setTimeout(() => setToast(""), 2500);
@@ -85,25 +78,32 @@ export default function DirectEnterpriseDashboard() {
   };
 
   return (
-    <div className={dark ? "min-h-screen flex bg-gradient-to-br from-black via-gray-950 to-black text-white" : "min-h-screen flex bg-gradient-to-br from-gray-100 via-white to-gray-200 text-black"}>
+    <div className={dark ? "min-h-screen flex bg-gradient-to-br from-[#050510] via-[#0f172a] to-black text-white" : "min-h-screen flex bg-gradient-to-br from-gray-100 via-white to-gray-200 text-black"}>
       {/* Sidebar */}
-      <motion.div animate={{ width: sidebarOpen ? 260 : 80 }} className={dark ? "bg-black/60 backdrop-blur-xl border-r border-white/10 p-4" : "bg-white/70 backdrop-blur-xl border-r p-4 shadow-xl"}>
+      <motion.div animate={{ width: sidebarOpen ? 260 : 80 }} className={dark ? "bg-[#020617]/80 backdrop-blur-xl border-r border-white/10 p-4" : "bg-white/70 backdrop-blur-xl border-r p-4 shadow-xl"}>
         <div className="flex justify-between items-center mb-8">
           {sidebarOpen && <h2 className="text-2xl font-extrabold bg-gradient-to-r from-blue-500 to-purple-600 bg-clip-text text-transparent">Direct</h2>}
           <button onClick={() => setSidebarOpen(!sidebarOpen)}><Menu /></button>
         </div>
 
         <div className="space-y-4">
-          <button onClick={() => setActivePage("dashboard")} className="flex items-center gap-3 hover:scale-105 transition-transform duration-200"><Home /> {sidebarOpen && "Dashboard"}</button>
-          <button onClick={() => setActivePage("events")} className="flex items-center gap-3 hover:scale-105 transition-transform duration-200"><Calendar /> {sidebarOpen && "Events"}</button>
-          <button onClick={() => setActivePage("analytics")} className="flex items-center gap-3 hover:scale-105 transition-transform duration-200"><BarChart3 /> {sidebarOpen && "Analytics"}</button>
+          <button onClick={() => setActivePage("dashboard")} className="flex items-center gap-3 hover:opacity-70"><Home /> {sidebarOpen && "Dashboard"}</button>
+          <button onClick={() => setActivePage("events")} className="flex items-center gap-3 hover:opacity-70"><Calendar /> {sidebarOpen && "Events"}</button>
         </div>
 
-        <button onClick={() => setDark(!dark)} className="mt-6 w-full border rounded-xl py-2">{dark ? "☀" : "🌙"}</button>
+        <button onClick={() => setDark(!dark)} className="mt-6 w-full border border-white/20 rounded-xl py-2 backdrop-blur-xl">{dark ? "☀" : "🌙"}</button>
 
+        {/* FIXED DARK MODE ADMIN LOGIN */}
         {!isAdmin && sidebarOpen && (
           <div className="mt-6">
-            <input type="password" placeholder="Admin password" value={password} onChange={(e) => setPassword(e.target.value)} className="border p-2 rounded-xl w-full mb-2 text-black" />
+            <p className="text-xs mb-2 opacity-70">Admin password</p>
+            <input
+              type="password"
+              placeholder="Enter admin password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className={dark ? "border border-white/20 bg-white/10 text-white placeholder-gray-300 p-2 rounded-xl w-full mb-2" : "border p-2 rounded-xl w-full mb-2 text-black"}
+            />
             <button onClick={loginAdmin} className="bg-gradient-to-r from-blue-500 to-purple-600 text-white w-full py-2 rounded-xl">Login</button>
           </div>
         )}
@@ -112,7 +112,7 @@ export default function DirectEnterpriseDashboard() {
       {/* Main */}
       <div className="flex-1 p-8">
         <div className="flex justify-between items-center mb-8 backdrop-blur-xl bg-white/40 dark:bg-white/10 rounded-2xl px-6 py-4 shadow-lg">
-          <h1 className="text-2xl font-bold">Direct Next‑Gen Suite</h1>
+          <h1 className="text-2xl font-bold">Direct Dashboard</h1>
           <div className="flex items-center gap-4">
             {isAdmin && activePage === "events" && (
               <button onClick={() => setShowModal(true)} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white">
@@ -127,39 +127,23 @@ export default function DirectEnterpriseDashboard() {
         <AnimatePresence mode="wait">
           {activePage === "dashboard" && (
             <motion.div key="dash" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl shadow-xl bg-gradient-to-br from-blue-500 to-purple-600 text-white">
                   <p>Total Events</p>
                   <h2 className="text-3xl font-bold">{totalEvents}</h2>
                 </motion.div>
-
                 <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl shadow-xl bg-gradient-to-br from-indigo-500 to-blue-600 text-white">
                   <p>Technical</p>
                   <h2 className="text-3xl font-bold">{technicalCount}</h2>
                 </motion.div>
-
                 <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl shadow-xl bg-gradient-to-br from-pink-500 to-rose-600 text-white">
                   <p>Cultural</p>
                   <h2 className="text-3xl font-bold">{culturalCount}</h2>
                 </motion.div>
-
                 <motion.div whileHover={{ scale: 1.05 }} className="p-6 rounded-2xl shadow-xl bg-gradient-to-br from-green-500 to-emerald-600 text-white">
                   <p>Sports</p>
                   <h2 className="text-3xl font-bold">{sportsCount}</h2>
                 </motion.div>
-              </div>
-
-              {/* Elite Chart */}
-              <div className="backdrop-blur-xl bg-white/60 rounded-3xl p-6 shadow-xl">
-                <h2 className="mb-4 font-semibold">Growth Analytics</h2>
-                <ResponsiveContainer width="100%" height={250}>
-                  <LineChart data={analyticsData}>
-                    <XAxis dataKey="name" />
-                    <YAxis />
-                    <Tooltip />
-                    <Line type="monotone" dataKey="value" stroke="#6366f1" strokeWidth={3} />
-                  </LineChart>
-                </ResponsiveContainer>
               </div>
             </motion.div>
           )}
@@ -167,7 +151,7 @@ export default function DirectEnterpriseDashboard() {
           {activePage === "events" && (
             <motion.div key="events" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
               {events.map((event) => (
-                <motion.div key={event.id} whileHover={{ scale: 1.05 }} className="backdrop-blur-xl bg-white/70 rounded-3xl shadow-xl overflow-hidden hover:shadow-2xl hover:-translate-y-1 transition-all duration-300">
+                <motion.div key={event.id} whileHover={{ scale: 1.05 }} className={dark ? "backdrop-blur-xl bg-white/10 border border-white/10 rounded-3xl shadow-xl overflow-hidden" : "backdrop-blur-xl bg-white/70 rounded-3xl shadow-xl overflow-hidden"}>
                   {event.image && <img src={event.image} alt="event" className="w-full h-44 object-cover" />}
                   <div className="p-6">
                     <h2 className="text-xl font-semibold">{event.title}</h2>
@@ -187,12 +171,6 @@ export default function DirectEnterpriseDashboard() {
                   </div>
                 </motion.div>
               ))}
-            </motion.div>
-          )}
-
-          {activePage === "analytics" && (
-            <motion.div key="analytics" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="p-10 rounded-2xl bg-gradient-to-br from-green-500 to-emerald-700 text-white shadow-xl">
-              <p className="text-lg">📈 Enterprise Analytics Module</p>
             </motion.div>
           )}
         </AnimatePresence>
