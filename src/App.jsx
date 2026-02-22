@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Home, Calendar, Menu, Bell, Plus } from "lucide-react";
-import { LineChart, Line, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { Home, Calendar, Menu, Plus, LogOut } from "lucide-react";
 
 export default function DirectEnterpriseDashboard() {
   const [dark, setDark] = useState(false);
@@ -64,6 +63,12 @@ export default function DirectEnterpriseDashboard() {
     } else alert("Wrong password");
   };
 
+  const logoutAdmin = () => {
+    setIsAdmin(false);
+    setPassword("");
+    showToast("Logged out");
+  };
+
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
@@ -93,7 +98,6 @@ export default function DirectEnterpriseDashboard() {
 
         <button onClick={() => setDark(!dark)} className="mt-6 w-full border border-white/20 rounded-xl py-2 backdrop-blur-xl">{dark ? "☀" : "🌙"}</button>
 
-        {/* FIXED DARK MODE ADMIN LOGIN */}
         {!isAdmin && sidebarOpen && (
           <div className="mt-6">
             <p className="text-xs mb-2 opacity-70">Admin password</p>
@@ -107,21 +111,23 @@ export default function DirectEnterpriseDashboard() {
             <button onClick={loginAdmin} className="bg-gradient-to-r from-blue-500 to-purple-600 text-white w-full py-2 rounded-xl">Login</button>
           </div>
         )}
+
+        {isAdmin && sidebarOpen && (
+          <button onClick={logoutAdmin} className="mt-6 flex items-center gap-2 text-red-400 hover:opacity-80">
+            <LogOut /> Logout
+          </button>
+        )}
       </motion.div>
 
       {/* Main */}
       <div className="flex-1 p-8">
         <div className="flex justify-between items-center mb-8 backdrop-blur-xl bg-white/40 dark:bg-white/10 rounded-2xl px-6 py-4 shadow-lg">
           <h1 className="text-2xl font-bold">Direct Dashboard</h1>
-          <div className="flex items-center gap-4">
-            {isAdmin && activePage === "events" && (
-              <button onClick={() => setShowModal(true)} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-                <Plus /> Add
-              </button>
-            )}
-            <Bell />
-            <div className="w-10 h-10 rounded-full bg-gradient-to-r from-blue-500 to-purple-600" />
-          </div>
+          {isAdmin && activePage === "events" && (
+            <button onClick={() => setShowModal(true)} className="flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-blue-500 to-purple-600 text-white">
+              <Plus /> Add
+            </button>
+          )}
         </div>
 
         <AnimatePresence mode="wait">
